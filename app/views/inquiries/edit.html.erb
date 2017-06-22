@@ -1,0 +1,88 @@
+<div id="unit-show">
+  <div class="unit-container">
+    <div class="unit-title">
+      <%= link_to @inquiry.unit.ad_name, unit_url(@inquiry.unit) %>
+    </div>
+    <div class="unit-pricing">
+      <label>Average Price Per Night
+        <div class="unit-average-price">
+          <%= ": $" + @inquiry.unit.average_price.to_s %>
+        </div>
+      </label>
+      <label>Taxes
+      <div class="unit-taxes">
+        <%= ": " + (@inquiry.unit.tax_percent*100).to_s %>%
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="inquiry-form-container">
+  <div id="inquiry-form">
+    <h2>Update this Inquiry</h2>
+    <form action="/units/<%=@inquiry.unit_id%>/inquiries/<%=@inquiry.id%>" method="POST">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+      <input type="hidden" name="_method" value="PATCH">
+
+      <% if flash[:errors] != {} %>
+        <div id="error_explanation">
+          <ul>
+            <% flash[:errors].keys.each do |error_key| %>
+              <% flash[:errors][error_key].each do |error| %>
+                <li><%= error_key.to_s.capitalize + " " + error.to_s + "." %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div id="inquiry-dates">
+        <label> From
+          <input type="date" class="<% if flash[:errors]['start_date'] || flash[:errors]['time'] %>field_with_errors<% end %>" name="inquiry[start_date]" value="<%=@inquiry.start_date%>">
+        </label>
+        <label> To
+          <input type="date" class="<% if flash[:errors]['end_date'] || flash[:errors]['time'] %>field_with_errors<% end %>" name="inquiry[end_date]" value="<%=@inquiry.end_date%>">
+        </label>
+      </div>
+
+      <div id="inquiry-form-user">
+        <label> Booked Under
+          <div><%=@inquiry.user.name%></div>
+          <div><%=@inquiry.user.phone_number%></div>
+        </label>
+      </div>
+
+      <div id="inquiry-form-pricing">
+        <label> <h4>Pricing</h4>
+          <div><label>Price: $<%= @inquiry.total_price %></label></div>
+          <div><label>Taxes Withheld: $<%= @inquiry.taxes_withheld %></div>
+        </label>
+      </div>
+
+      <div id="inquiry-form-edit-bottom">
+        <label id="edit-email">E-mail Verification
+          <input type="text" class="<% if flash[:errors]['authentication_update'] %>field_with_errors<% end %>" name="user[email]" placeholder="Verify e-mail">
+        </label>
+
+        <input type="submit" class="submit" value="Update These Dates">
+      </div>
+    </form>
+  </div>
+
+
+  <div id="delete-inquiry-form">
+    <h2>Delete this Inquiry</h2>
+    <form action="<%=unit_inquiry_url(@inquiry.unit_id, @inquiry.id)%>" method="POST">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+      <input type="hidden" name="_method" value="DELETE">
+
+      <label>E-mail Verification
+        <input type="text" class="<% if flash[:errors]['authentication_delete'] %>field_with_errors<% end %>" name="user[email]" placeholder="Verify e-mail">
+      </label>
+
+      <input type="submit" value="Delete This Inquiry">
+    </form>
+  </div>
+</div>

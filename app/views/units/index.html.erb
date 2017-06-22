@@ -1,0 +1,20 @@
+<div class="units">
+  <% @units.each do |unit| %>
+  <div class="unit-container">
+    <div class="unit-title">
+      <%= link_to unit.ad_name, unit_url(unit) %>
+    </div>
+    <div class="unit-pricing">
+      <label>Average Price Per Night
+        <div class="unit-average-price">
+          <%= ": $" + unit.average_price.to_s %>
+        </div>
+      </label>
+      <label>Taxes
+      <div class="unit-taxes">
+        <%= ": " + (unit.tax_percent*100).to_s %>%
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

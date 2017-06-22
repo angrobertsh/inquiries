@@ -1,0 +1,61 @@
+<div id="unit-show">
+  <div class="unit-container">
+    <div class="unit-title">
+      <%= link_to @unit.ad_name, unit_url(@unit) %>
+    </div>
+    <div class="unit-pricing">
+      <label>Average Price Per Night
+        <div class="unit-average-price">
+          <%= ": $" + @unit.average_price.to_s %>
+        </div>
+      </label>
+      <label>Taxes
+      <div class="unit-taxes">
+        <%= ": " + (@unit.tax_percent*100).to_s %>%
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="inquiry-form-container">
+  <div id="inquiry-form">
+    <h2>Make an Inquiry</h2>
+    <% if flash[:errors] != {} %>
+      <div id="error_explanation">
+        <ul>
+          <% flash[:errors].keys.each do |error_key| %>
+            <% flash[:errors][error_key].each do |error| %>
+              <li><%= error_key.to_s.capitalize + " " + error.to_s + "." %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <form action="/units/<%=@unit.id%>/inquiries" method="post">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+      <div id="inquiry-form-dates">
+        <label>From
+          <input type="date" class="<% if flash[:errors]['start_date'] || flash[:errors]['time'] %>field_with_errors<% end %>" name="inquiry[start_date]">
+        </label>
+        <label>To
+          <input type="date" class="<% if flash[:errors]['end_date'] || flash[:errors]['time'] %>field_with_errors<% end %>" name="inquiry[end_date]">
+        </label>
+      </div>
+
+      <div id="inquiry-form-user">
+        <label>Name
+          <input type="text" name="user[name]" placeholder="e.g. George Smith">
+        </label>
+        <label>E-mail
+          <input type="text" class="<% if flash[:errors]['email'] %>field_with_errors<% end %>" name="user[email]" placeholder="e.g. sonder@sonder.com">
+        </label>
+        <label>Phone Number
+          <input type="text" name="user[phone_number]" placeholder="e.g. 1-(415)-111-1234">
+        </label>
+      </div>
+
+      <input type="submit" value="Inquire">
+    </form>
+  </div>
+</div>
