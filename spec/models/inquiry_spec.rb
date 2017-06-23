@@ -76,7 +76,7 @@ RSpec.describe Inquiry, type: :model do
       end
     end
 
-    # Protected method not tested
+    # Protected method is not able to be tested
     # describe '.end_date_after_start_date' do
     #   it 'should check if end dates are before start dates' do
     #     inquiry3 = Inquiry.new(end_date: Date.new(2016, 06, 20), start_date: Date.new(2016, 06, 01), unit_id: 1, user_id: 1)
