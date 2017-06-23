@@ -34,6 +34,7 @@ class InquiriesController < ApplicationController
       redirect_to edit_unit_inquiry_url(@inquiry)
     else
       if @inquiry.update(inquiry_params)
+        @inquiry.reset_price_and_taxes!
         redirect_to edit_unit_inquiry_url(@inquiry)
       else
         flash[:errors] = @inquiry.errors.messages
