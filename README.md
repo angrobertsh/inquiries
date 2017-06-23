@@ -18,9 +18,9 @@ I also had CSS conflicts that actually interfered with the rendering of erb. I d
 
 If I had had more time, I would have covered the following.
 
-## Make tests work
+## View tests
 
-If I had had time, I would make Inquiry tests that worked. Yikes. I would also attempt to write view tests with Capybara (which I definitely need to refresh myself on).
+Write view tests with Capybara.
 
 ## Fix CSS
 
@@ -28,7 +28,7 @@ I have no idea why my CSS is interfering with the actual rendering of erb. It is
 
 ## Database and model validations on inquiry dates
 
-I can't believe I didn't check if start_date was before end_date. Also, if you inquire for a unit with no price on that day, it shouldn't be free.
+If you inquire for a unit with no price on that day, it shouldn't be free.
 
 ## True authentication
 
